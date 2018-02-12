@@ -6,7 +6,10 @@
 *.user
 *.userosscache
 *.sln.docstates
-
+# Propias
+/__pycache__/
+/images/
+/.spyproject/
 
 
 
@@ -240,9 +243,7 @@ FakesAssemblies/
 
 # compiled python files
 *.pyc
-# Propias
-/__pycache__/
-/images/
+
 # LightSwitch generated files
 GeneratedArtifacts/
 _Pvt_Extensions/
