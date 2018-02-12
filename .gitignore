@@ -7,9 +7,8 @@
 *.userosscache
 *.sln.docstates
 
-Propias
-__pycache__/
-images/
+
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -241,7 +240,9 @@ FakesAssemblies/
 
 # compiled python files
 *.pyc
-
+# Propias
+/__pycache__/
+/images/
 # LightSwitch generated files
 GeneratedArtifacts/
 _Pvt_Extensions/

@@ -10,7 +10,7 @@ import os
 initialZ=-2
 
 #Queue of 10 images
-maxsize = 10
+QUEUESIZE = 100
 #Image directory inside the project
 IMAGEDIR = './images'
 #Array of images
@@ -37,15 +37,18 @@ client.moveByVelocity(10,0,0.3,18)
 
 while True:
    
-    #Get RGBA camera images
-    responses = client.simGetImages([ImageRequest(1, AirSimImageType.Scene)])
+    #Get uncompressed RGBA array bytes
+    #So response contains image data, pose, timestamp, etc
+    responses = client.simGetImages([ImageRequest(1, AirSimImageType.Scene)])  
+
     #Add image to queue
     imagequeue.append(responses[0].image_data_uint8)
-    #Dump queue when it gets full
-    if len(imagequeue) == maxsize:
-        for i in range(maxsize):
-            AirSimClientBase.write_file(os.path.normpath(IMAGEDIR + '/image%03d.png' %i ), imagequeue[i])
-        imagequeue.pop(0)
+
+    #Dum queue when it gets full
+    if len(imagequeue) == QUEUESIZE:
+        for i in range(QUEUESIZE):
+            AirSimClientBase.write_file(os.path.normpath(IMAGEDIR + '/image%03d.png'  % i ), imagequeue[i])
+        imagequeue.pop(0)    
     
     
     #Print collision info
