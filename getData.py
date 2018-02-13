@@ -2,7 +2,6 @@
 
 
 from AirSimClient import MultirotorClient, ImageRequest, AirSimImageType, AirSimClientBase
-import pprint
 import os
 
 
@@ -10,7 +9,7 @@ import os
 initialZ=-2
 
 #Queue of 10 images
-QUEUESIZE = 100
+maximages = 100
 #Image directory inside the project
 IMAGEDIR = './images'
 #Array of images
@@ -38,28 +37,24 @@ client.moveByVelocity(10,0,0.3,18)
 while True:
    
     #Get uncompressed RGBA array bytes
-    #So response contains image data, pose, timestamp, etc
+    #Response contains image data, pose, timestamp, etc
     responses = client.simGetImages([ImageRequest(1, AirSimImageType.Scene)])  
 
     #Add image to queue
     imagequeue.append(responses[0].image_data_uint8)
 
-    #Dum queue when it gets full
-    if len(imagequeue) == QUEUESIZE:
-        for i in range(QUEUESIZE):
+    #Dump queue when it gets full
+    if len(imagequeue) == maximages:
+        for i in range(maximages):
             AirSimClientBase.write_file(os.path.normpath(IMAGEDIR + '/image%03d.png'  % i ), imagequeue[i])
         imagequeue.pop(0)    
     
     
-    #Print collision info
+    #Receive info when drone has collided
     collision = client.getCollisionInfo()
     
     if collision.has_collided:
-        print("Collision at pos %s, normal %s, impact pt %s, penetration %f, name %s, obj id %d" % (
-            pprint.pformat(collision.position), 
-            pprint.pformat(collision.normal), 
-            pprint.pformat(collision.impact_point), 
-            collision.penetration_depth, collision.object_name, collision.object_id))
+        print("Drone has collided")
         break
 
 client.enableApiControl(False)
