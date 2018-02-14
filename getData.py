@@ -11,7 +11,7 @@ initialZ=-2
 #Queue of 10 images
 maximages = 100
 #Image directory inside the project
-IMAGEDIR = './images'
+IMAGEDIR = './dataset'
 #Array of images
 imagequeue = []
 
