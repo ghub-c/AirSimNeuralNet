@@ -37,7 +37,6 @@ client.moveByVelocity(10,0,0.3,18)
 while True:
    
     #Get uncompressed RGBA array bytes
-    #Response contains image data, pose, timestamp, etc
     responses = client.simGetImages([ImageRequest(1, AirSimImageType.Scene)])  
 
     #Add image to queue
@@ -55,6 +54,7 @@ while True:
     
     if collision.has_collided:
         print("Drone has collided")
+        client.reset()
         break
 
 client.enableApiControl(False)
