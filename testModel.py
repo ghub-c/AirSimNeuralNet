@@ -72,7 +72,7 @@ with tf.Graph().as_default():
     while True:
 
         # Get RGBA camera images from the car
-        responses = client.simGetImages([ImageRequest(1, AirSimImageType.Scene)])
+        responses = client.simGetImages([ImageRequest(2, AirSimImageType.Scene)])
 
         # Save it to a temporary file
         image = responses[0].image_data_uint8
